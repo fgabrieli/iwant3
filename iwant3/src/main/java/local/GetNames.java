@@ -2,14 +2,16 @@ package local;
 
 import java.io.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import com.google.gson.Gson;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 public class GetNames extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -32,14 +34,14 @@ public class GetNames extends HttpServlet {
 
     PrintWriter out = response.getWriter();
 
-//    Ford ford = new Ford();
-//    testPl(out, ford);
+    Ford ford = new Ford();
+    testPl(out, ford);
 
     Gson gson = new Gson();
 
     ArrayList<HashMap<String, String>> entries = db.select("SELECT name, surname FROM names");
 
-    out.print(gson.toJson(entries));
+    out.print(gson.toJson(entries));  
 
     out.flush();
     out.close();
