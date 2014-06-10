@@ -6,11 +6,12 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>GetNames</servlet-name>
-    <servlet-class>local.GetNames</servlet-class>
+    <servlet-name>Category</servlet-name>
+    <servlet-class>local.Category</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetNames</servlet-name>
-    <url-pattern>/getNames</url-pattern>
+    <servlet-name>Category</servlet-name>
+    <url-pattern>/category</url-pattern>
   </servlet-mapping>
+
 </web-app>

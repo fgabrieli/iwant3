@@ -13,4 +13,14 @@
     <servlet-name>GetNames</servlet-name>
     <url-pattern>/getNames</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Category</servlet-name>
+    <servlet-class>local.Category</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Category</servlet-name>
+    <url-pattern>/category</url-pattern>
+  </servlet-mapping>
+
 </web-app>

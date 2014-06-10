@@ -10,14 +10,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.mysql.jdbc.PreparedStatement;
+
 public class DbConnection {
   Connection db;
-
-  public DbConnection(String dbName, String user, String passwd) throws SQLException,
-      InstantiationException, IllegalAccessException, ClassNotFoundException {
-    Class.forName("com.mysql.jdbc.Driver");
+  Logger logger;
+  
+  public DbConnection(String dbName, String user, String passwd) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
 
     connect(dbName, user, passwd);
+    
+    logger = new Logger();
   }
 
   public ArrayList<HashMap<String, String>> select(String query) {
@@ -52,13 +56,21 @@ public class DbConnection {
     return entries;
   }
 
-  private void connect(String dbName, String user, String passwd)
-      throws SQLException {
+  private void connect(String dbName, String user, String passwd) throws SQLException {
     Properties connectionProperties = new Properties();
     connectionProperties.setProperty("user", user);
     connectionProperties.setProperty("password", passwd);
 
-    db = DriverManager.getConnection("jdbc:mysql://localhost:3306/test",
-        connectionProperties);
+    db = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", connectionProperties);
+  }
+
+  public void insertQuery(String query) throws SQLException {
+    try {
+      PreparedStatement ps = (PreparedStatement) db.prepareStatement(query); 
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      logger.log("Failed executing query=" + query);
+    }
   }
 }
